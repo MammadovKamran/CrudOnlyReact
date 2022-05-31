@@ -1,3 +1,25 @@
 {
-  "users": []
+  "products": [
+    {
+      "name": "ewfewfe",
+      "count": "4",
+      "seller": "fewfewf",
+      "price": "feewfewf",
+      "id": 1
+    },
+    {
+      "name": "ewfef",
+      "count": "5",
+      "seller": "fewfew",
+      "price": "efef",
+      "id": 2
+    },
+    {
+      "name": "334g43",
+      "quantity": "1",
+      "seller": "ggr5gg",
+      "price": "hthr",
+      "id": 3
+    }
+  ]
 }
