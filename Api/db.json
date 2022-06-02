@@ -1,25 +1,3 @@
 {
-  "products": [
-    {
-      "name": "kamran",
-      "count": "4",
-      "seller": "kamran",
-      "price": "kamran",
-      "id": 1
-    },
-    {
-      "name": "Nail",
-      "count": "5",
-      "seller": "Nail",
-      "price": "Nail",
-      "id": 2
-    },
-    {
-      "name": "Nicat",
-      "quantity": "1",
-      "seller": "Nicat",
-      "price": "Nicat",
-      "id": 3
-    }
-  ]
+  "products": []
 }
