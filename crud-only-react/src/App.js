@@ -7,7 +7,8 @@ const App = () => {
   const [count, setCount] = useState("");
   const [seller, setSeller] = useState("");
   const [price, setPrice] = useState("");
-  const [selected, setSelected] = useState("");
+  const [updateValue, setUpdateValue] = useState("");
+
   const [products, setProducts] = useState("");
 
   const url = "http://localhost:3000/products";
@@ -17,6 +18,10 @@ const App = () => {
     postProduct(addProduct);
     e.preventDefault();
   };
+
+  useEffect(() => {
+    getProducts();
+  }, [setProducts]);
 
   //*!POST REQUEST *//
 
@@ -56,20 +61,19 @@ const App = () => {
     }
   };
 
-  useEffect(() => {
-    getProducts();
-  }, [setProducts]);
   //*!PUT REQUEST *//
-  // const putRequest = (products) => {
-  //   const request = {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(products),
-  //   };
-  //   fetch(url, request)
-  //     .then((response) => response.json())
-  //     .then((data) => this.setProducts(data));
-  // };
+  const putRequest = async (product) => {
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title: "React Hooks PUT Request Example" }),
+    };
+    const response = await fetch(url, requestOptions);
+    return await response.json();
+  };
+
+
+  //*!DELETE REQUEST *//
 
   const deletePost = async () => {
     await fetch(url, { method: "DELETE" });
@@ -77,8 +81,23 @@ const App = () => {
     alert("deleteed");
   };
 
-  const selectProduct = (e) => {
-    console.log("vrdvrdfvsv");
+  const selectProduct = (product) => {
+    setName(product.name);
+    setCount(product.count);
+    setPrice(product.price);
+    setSeller(product.seller);
+
+    products.forEach((pro) => {
+      if (pro.id === product.id) {
+        pro.name = product.name;
+        pro.count = product.count;
+        pro.price = product.price;
+        pro.seller = product.seller;
+      }
+    });
+    setProducts(products);
+    // setUpdateValue(product);
+    // console.log(updateValue);
   };
 
   const addUI = () => {
@@ -88,11 +107,6 @@ const App = () => {
     setPrice("");
     setSeller("");
   };
-  console.log(products);
-
-  // const updateUI = () => {
-  //   putRequest();
-  // };
 
   return (
     <div>
@@ -139,7 +153,7 @@ const App = () => {
             <Button className="btn btn-primary px-5" id="btn_read" onClick={addUI}>
               Read
             </Button>
-            <Button className="btn btn-warning px-5" id="btn_update" disabled>
+            <Button className="btn btn-warning px-5" id="btn_update" onClick={putRequest(products)}>
               Update
             </Button>
             <Button className="btn btn-danger px-5" id="btn_delete" onClick={deletePost}>
@@ -164,7 +178,7 @@ const App = () => {
             {products.length > 0
               ? products.map((product) => {
                   return (
-                    <tr className="w-100 d-flex justify-content-between" value={product} key={product.id} onClick={selectProduct}>
+                    <tr className="w-100 d-flex justify-content-between" value={product} key={product.id} onClick={(e) => selectProduct(product)}>
                       <th scope="row"></th>
                       <td>{product.name}</td>
                       <td>{product.count}</td>
